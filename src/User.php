@@ -165,7 +165,7 @@ class User
                     $this->database->query($sqlQuery);
                 }
             }
-        }  
+        }
 
         if(empty($currentVersion)) {
           $this->database->query('INSERT INTO `settings` (`setting`, `value`) VALUES ("version", "' . version . '");');
@@ -491,7 +491,7 @@ class User
             curl_setopt($cb, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
             $result = curl_exec($cb);
 
-            if ($result !== 'github.com/ssl/ezXSS') {
+            if ($result !== 'glitchwitch.io/xss') {
                 return 'Unable to find a valid ezXSS installation. Please check the domain.';
             }
 

@@ -67,7 +67,7 @@ class Basic
 
               <li class="nav-info">
                 <i class="pe pe-7s-shield text-accent"></i>
-                <div class="m-t-xs"><span class="c-white">ezXSS v{{version}}</span> github.com/ssl/ezxss</div>
+                <div class="m-t-xs"><span class="c-white">ezXSS v{{version}}</span> glitchwitch.io/xss</div>
               </li>
 
               <li class="nav-category">Main</li>
@@ -98,7 +98,7 @@ HTML;
 
               <li class="nav-info">
                 <i class="pe pe-7s-shield text-accent"></i>
-                <div class="m-t-xs"><span class="c-white">ezXSS v{{version}}</span> github.com/ssl/ezxss</div>
+                <div class="m-t-xs"><span class="c-white">ezXSS v{{version}}</span> glitchwitch.io/xss</div>
               </li>
 
             </ul>
@@ -193,7 +193,7 @@ HTML;
              <label class="checkbox-label">
                 <input class="chkbox" type="checkbox" name="selected" value="{{report[id]}}" id="chk_{{report[id]}}" report-id="{{report[id]}}">
                 <span class="checkbox-custom rectangular"></span>
-            </label>           
+            </label>
           </td>
           <td><b>{{report[id]}}</b></td>
           <td>

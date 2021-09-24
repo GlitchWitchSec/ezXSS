@@ -139,7 +139,7 @@ class Route
      * Puts callback info in database and sends out mail
      * @method callback
      * @param string $phpInput POST information
-     * @return string github.com/ssl/ezXSS
+     * @return string glitchwitch.io/xss
      */
     public function callback($phpInput): string
     {
@@ -166,12 +166,12 @@ class Route
 
         foreach($blockedDomains as $blockedDomain) {
             if($json->origin == $blockedDomain) {
-                return 'github.com/ssl/ezXSS';
+                return 'glitchwitch.io/xss';
             }
             if (strpos($blockedDomain, '*') !== false) {
                 $blockedDomain = str_replace('*', '(.*)', $blockedDomain);
                 if(preg_match('/^'.$blockedDomain.'$/', $json->origin)) {
-                    return 'github.com/ssl/ezXSS';
+                    return 'glitchwitch.io/xss';
                 }
             }
         }
@@ -190,7 +190,7 @@ class Route
                 }
             }
             if(!$foundWhitelist) {
-                return 'github.com/ssl/ezXSS';
+                return 'glitchwitch.io/xss';
             }
         }
 
@@ -211,7 +211,7 @@ class Route
 
             if (isset($searchCommonReport['id'])) {
                 if ($setting['filter-save'] == 0 && $setting['filter-alert'] == 0) {
-                    return 'github.com/ssl/ezXSS';
+                    return 'glitchwitch.io/xss';
                 } else {
                     $doubleReport = true;
                 }
@@ -348,7 +348,7 @@ class Route
             }
         }
 
-        return 'github.com/ssl/ezXSS';
+        return 'glitchwitch.io/xss';
     }
 
     /**
