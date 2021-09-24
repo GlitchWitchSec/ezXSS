@@ -155,20 +155,43 @@ class Route
         $domain = htmlspecialchars($_SERVER['SERVER_NAME']);
         $json->origin = str_replace(['https://', 'http://'], '', $json->origin);
 
-        if ($json->origin == $setting['blocked-domains'] || in_array(
-                $json->origin,
-                explode(',', $setting['blocked-domains']),
-                true
-            )) {
-            return 'github.com/ssl/ezXSS';
+        $json->uri = substr($json->uri, 0, 1000);
+        $json->referer = substr($json->referer, 0, 1000);
+        $json->origin = substr($json->origin, 0, 500);
+        $json->payload = substr($json->payload, 0, 500);
+        $json->{'user-agent'} = substr($json->{'user-agent'}, 0, 500);
+
+        $blockedDomains = explode(',', $setting['blocked-domains']);
+        $whitelistDomains = explode(',', $setting['whitelist-domains']);
+
+        foreach($blockedDomains as $blockedDomain) {
+            if($json->origin == $blockedDomain) {
+                return 'github.com/ssl/ezXSS';
+            }
+            if (strpos($blockedDomain, '*') !== false) {
+                $blockedDomain = str_replace('*', '(.*)', $blockedDomain);
+                if(preg_match('/^'.$blockedDomain.'$/', $json->origin)) {
+                    return 'github.com/ssl/ezXSS';
+                }
+            }
         }
 
-        if ($setting['whitelist-domains'] !== '' && $json->origin !== $setting['whitelist-domains'] && in_array(
-                $json->origin,
-                explode(',', $setting['whitelist-domains']),
-                true) === false
-        ) {
-            return 'github.com/ssl/ezXSS';
+        if ($setting['whitelist-domains'] !== '') {
+            $foundWhitelist = false;
+            foreach ($whitelistDomains as $whitelistDomain) {
+                if ($json->origin == $whitelistDomain) {
+                    $foundWhitelist = true;
+                }
+                if (strpos($whitelistDomain, '*') !== false) {
+                    $whitelistDomain = str_replace('*', '(.*)', $whitelistDomain);
+                    if (preg_match('/^' . $whitelistDomain . '$/', $json->origin)) {
+                        $foundWhitelist = true;
+                    }
+                }
+            }
+            if(!$foundWhitelist) {
+                return 'github.com/ssl/ezXSS';
+            }
         }
 
         $doubleReport = false;

@@ -10,8 +10,8 @@
 |
 */
 
-define('version', '3.10');
-define('debug', true);
+define('version', '3.11');
+define('debug', false);
 
 if (debug) {
     error_reporting(E_ALL);
